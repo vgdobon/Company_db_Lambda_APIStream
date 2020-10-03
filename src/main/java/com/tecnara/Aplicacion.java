@@ -1,5 +1,7 @@
 package com.tecnara;
 
+import com.tecnara.utils.Utils;
+
 import java.util.Scanner;
 
 public class Aplicacion {
@@ -8,8 +10,9 @@ public class Aplicacion {
     Scanner scanner= new Scanner(System.in);
     boolean closeApp=false;
 
-    public void ejecutar(){
+    public void ejecutar()  {
         System.out.println("Bienvenido a la aplicación de su Empresa");
+        scanner.useDelimiter("\n");
 
 
         while (!closeApp){
@@ -20,8 +23,10 @@ public class Aplicacion {
 
                 break;
             case 2:
+
                 System.out.println("User name:");
                 String newUserName=scanner.next();
+
 
                 System.out.println("User age:");
                 int newUserAge=scanner.nextInt();
@@ -31,7 +36,7 @@ public class Aplicacion {
 
                 User user=null;
 
-                if(newUserName!=null||newUserAge<0&&newUserAge>120||newUserSalary<0){
+                if(!(newUserName.equals("") ||newUserAge<0 || newUserAge>120||newUserSalary<900)){
                     user= new User(newUserName,newUserAge,newUserSalary);
                 }else{
                     System.out.println("\n" +
@@ -68,7 +73,7 @@ public class Aplicacion {
 
 
 
-                menuHelper.updateUsert(id,attibuteToActt,newValue);
+                menuHelper.updateUser(id,attibuteToActt,newValue);
 
                 break;
 
@@ -113,7 +118,7 @@ public class Aplicacion {
                 System.out.println("Write max range´s age");
                 int maxRangeAge=scanner.nextInt();
 
-                System.out.println("Write max range´s age");
+                System.out.println("Write min range´s age");
                 int minRangeAge=scanner.nextInt();
 
                 menuHelper.filterUsersRangeAge(maxRangeAge,minRangeAge);
@@ -123,7 +128,7 @@ public class Aplicacion {
                 System.out.println("Write max range´s salary");
                 float maxRangeSalary=scanner.nextFloat();
 
-                System.out.println("Write max range´s salary");
+                System.out.println("Write min range´s salary");
                 float minRangeSalary=scanner.nextFloat();
 
                 menuHelper.filterUsersRangeSalary(maxRangeSalary,minRangeSalary);
@@ -138,32 +143,31 @@ public class Aplicacion {
 
     }
 
-//    Aplicación por consola que va a tener un menu:
-//    Añadir usuario
-//    Eliminar usuario
-//    Actualizar usuario
-//    Filtrar usuarios
-//4.1 Filtrar por nombre
-//4.2 Filtrar por edad
-//4.3 Filtrar por salario
-//4.4 Filtrar por el salario más elevado
-//4.5 Filtrar por la edad mayor
-//11:10
-//        4.6 Filtrar por rango de edad
-//11:10
-//        4.7 Filtrar por rango de salario
-
     public int mostrarMenu(){
+        String opcionMenu;
+        int opcion = -1;
+        boolean isOptionValid=false;
+        do {
+            System.out.println("Choose an option:\n" +
+                    "1.View users\n" +
+                    "2.Add user\n" +
+                    "3.Remove user\n" +
+                    "4.Update user\n" +
+                    "5.Filter user\n" +
+                    "0.Close app\n");
 
-        System.out.println("Choose an option:\n" +
-                "1.View users\n" +
-                "2.Add user\n" +
-                "3.Remove user\n" +
-                "4.Update user\n" +
-                "5.Filter user\n" +
-                "0.Close app\n");
+            opcionMenu = scanner.next();
+            if(Utils.isNumeric(opcionMenu) ){
+                opcion=Integer.parseInt(opcionMenu);
+                if(opcion>=0 && opcion<6){
+                    isOptionValid=true;
+                }
+            }
 
-        int opcion = scanner.nextInt();
+
+        }while (!isOptionValid);
+
+
 
         if(opcion==5){
             opcion=filterMenu();
@@ -173,16 +177,34 @@ public class Aplicacion {
     }
 
     private int filterMenu() {
-        System.out.println("Choose filter option:\n" +
-                "5.Filter by name\n" +
-                "6.Filter by age\n" +
-                "7.Filter by salary\n" +
-                "8.Filer by max salary\n" +
-                "9.Filer by max age\n" +
-                "10.Filter by age range\n"+
-                "11.Filter by salary range\n");
+        String opcionMenu;
+        int opcion = -1;
+        boolean isOptionValid=false;
+        do{
+            System.out.println("Choose filter option:\n" +
+                    "5.Filter by name\n" +
+                    "6.Filter by age\n" +
+                    "7.Filter by salary\n" +
+                    "8.Filter by max salary\n" +
+                    "9.Filter by max age\n" +
+                    "10.Filter by age range\n"+
+                    "11.Filter by salary range\n");
+            opcionMenu = scanner.next();
 
-        return scanner.nextInt();
+            if(Utils.isNumeric(opcionMenu)){
+                opcion=Integer.parseInt(opcionMenu);
+                if(opcion>4 && opcion<12){
+                    isOptionValid=true;
+                }
+            }
+
+
+
+        }while (!isOptionValid);
+
+
+
+        return opcion;
     }
 
 }
