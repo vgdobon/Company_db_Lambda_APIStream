@@ -1,5 +1,7 @@
 package com.tecnara;
 
+import com.tecnara.utils.Color;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -8,12 +10,10 @@ public class MenuHelper {
 
     Dao dao=new Dao();
 
-    public void loadUsers()  {
+    public void loadUsers(){
         for (User usuario:dao.loadUsers()) {
             System.out.println(usuario.toString());
         }
-
-
     }
 
     public void loadUser(int id) {
@@ -65,7 +65,7 @@ public class MenuHelper {
         List<User> listUser= dao.loadUsers();
         Optional<User> maxAge = listUser.stream().max(Comparator.comparingInt(User::getAge));
 
-        maxAge.ifPresent(user -> System.out.println(user.toString()));
+        maxAge.ifPresent(user -> System.out.println(Color.yellow+user.toString()+Color.reset));
 
     }
 

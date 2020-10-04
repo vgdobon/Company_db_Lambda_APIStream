@@ -1,5 +1,7 @@
 package com.tecnara;
 
+import com.tecnara.utils.Color;
+import com.tecnara.utils.Texto;
 import com.tecnara.utils.Utils;
 
 import java.util.Scanner;
@@ -8,13 +10,13 @@ public class Aplicacion {
 
     MenuHelper menuHelper= new MenuHelper();
     Scanner scanner= new Scanner(System.in);
-    boolean closeApp=false;
+
 
     public void ejecutar()  {
-        System.out.println("Bienvenido a la aplicación de su Empresa");
+        System.out.println(Texto.letreBordeEInterior(Color.blue,Color.black));
         scanner.useDelimiter("\n");
 
-
+        boolean closeApp=false;
         while (!closeApp){
             switch (mostrarMenu()){
 
@@ -78,7 +80,7 @@ public class Aplicacion {
                 break;
 
             case 5:
-                System.out.println("Write name:");
+                System.out.println("Write the name:");
                 String filterUserName=scanner.next();
 
                 menuHelper.filterUsersName(filterUserName);
@@ -86,7 +88,7 @@ public class Aplicacion {
                 break;
 
             case 6:
-                System.out.println("Write age:");
+                System.out.println("Write the age:");
                 int filterUserAge=scanner.nextInt();
 
                 menuHelper.filterusersAge(filterUserAge);
@@ -94,7 +96,7 @@ public class Aplicacion {
                 break;
 
             case 7:
-                System.out.println("Write salary:");
+                System.out.println("Write the salary:");
                 float filterUserSalary=scanner.nextFloat();
 
                 menuHelper.filterUsersSalary(filterUserSalary);
@@ -187,7 +189,7 @@ public class Aplicacion {
                     "7.Filter by salary\n" +
                     "8.Filter by max salary\n" +
                     "9.Filter by max age\n" +
-                    "10.Filter by age range\n"+
+                    "10.Filter by age range\n" +
                     "11.Filter by salary range\n");
             opcionMenu = scanner.next();
 
